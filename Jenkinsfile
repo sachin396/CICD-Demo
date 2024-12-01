@@ -6,6 +6,8 @@ pipeline {
 	environment {
 		SONAR_SCANNER_HOME = tool 'SonarQubeScanner'
 		SONAR_PROJECT_KEY = 'CICD1'
+		DOCKER_HUB_CREDENTIALS_ID = 'dockerhub-jenkins-token'
+		DOCKER_HUB_REPO = '123patil/nodecicd'
 	}
 	stages {
 		stage('GitHub'){
@@ -33,6 +35,13 @@ pipeline {
 						-Dsonar.login=${SONAR_TOKEN}
 						"""   						
 					}
+				}
+			}
+		}
+		stage('Build Docker Image'){
+			steps {
+				script {
+					dockerImage = docker.build("${DOCKER_HUB_REPO}:latest")
 				}
 			}
 		}
