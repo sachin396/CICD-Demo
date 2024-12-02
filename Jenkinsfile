@@ -22,6 +22,7 @@ pipeline {
 			}
 
 		}
+		
 		stage('SonarQube Analysis'){
 			steps {
 				withCredentials([string(credentialsId: 'cicd-sonarqube-token', variable: 'SONAR_TOKEN')]) {
